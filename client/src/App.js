@@ -44,9 +44,9 @@ function getForecastInCurrentUnits(forecast, tempUnit) {
 
 function App() {
 	const initialState = {forecast: {}, temperatureUnit: "fahrenheit"};
-	//let myInterval = React.useRef(null);
+	let myInterval = React.useRef(null);
 	const [state, dispatch] = React.useReducer(reducer, initialState);
-	let interval;
+	//let interval;
   
 	React.useEffect(() => {    
 		async function getNewForecast(i) {
@@ -59,13 +59,13 @@ function App() {
 			dispatch({type: 'setForecast', forecast: forecasts[i]})
 		}
 		console.log(`useEffect is running`);
-		interval = setInterval(() => getNewForecast(Math.floor(Math.random() * 10)), 5000);		
-		//myInterval.current = setInterval(() => getNewForecast(Math.floor(Math.random() * 10)), 5000);
+		//interval = setInterval(() => getNewForecast(Math.floor(Math.random() * 10)), 5000);		
+		myInterval.current = setInterval(() => getNewForecast(Math.floor(Math.random() * 10)), 5000);
 
 		return () => {
 			console.log('Alert removed');
-			clearInterval(interval);
-			//clearInterval(myInterval.current);
+			//clearInterval(interval);
+			clearInterval(myInterval.current);
 		};
 
 	}, []);
